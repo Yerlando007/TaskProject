@@ -1,7 +1,7 @@
-﻿using KDS.Primitives.FluentResult;
+﻿using DataManager.EF;
+using KDS.Primitives.FluentResult;
 using MediatR;
-using TestMediatorApi.Interfaces;
-using TestMediatorApi.Models.EF;
+using TaskProject.Interfaces;
 
 namespace TestMediatorApi.Mediatr.CategoryMediatr.Command;
 
