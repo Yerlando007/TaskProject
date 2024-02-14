@@ -2,6 +2,7 @@ using DataManager.Base;
 using Microsoft.AspNetCore.Mvc;
 using TaskProject.Controllers;
 using TaskProject.Mediatr.CategoryMediatr.Query;
+using TestMediatorApi.Mediatr.CategoryMediatr.Command;
 
 namespace TestMediatorApi.Controllers;
 
@@ -27,6 +28,13 @@ public class CategoryAddController : BaseController
     public async Task<IActionResult> RemoveFieldForCategory([FromForm] RemoveCategoryFieldFormData value)
     {
         var result = await Sender.Send(new CategoryRemoveFieldQuery(value));
+        return Ok(result);
+    }
+
+    [HttpGet("GetAllCategory")]
+    public async Task<IActionResult> GetAllCategory()
+    {
+        var result = await Sender.Send(new GetAllCategoryCommand());
         return Ok(result);
     }
 }

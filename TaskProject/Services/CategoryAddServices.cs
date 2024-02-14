@@ -56,4 +56,10 @@ public class CategoryAddServices : ICategoryAdd
         await _context.SaveChangesAsync();
         return true;
     }
+
+    public async Task<List<Category>> GetFieldsCategory()
+    {
+        var categoryList = await _context.Category.Include(r => r.Fields).ToListAsync();
+        return categoryList;
+    }
 }
