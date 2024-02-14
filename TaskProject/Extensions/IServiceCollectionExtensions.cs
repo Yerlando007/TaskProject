@@ -43,6 +43,6 @@ public static class IServiceCollectionExtensions
 
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        return services.AddScoped<ICategoryAdd, CategoryAddServices>();
+        return services.AddScoped<ICategoryAdd, CategoryAddServices>().AddScoped<IGoodAdd, GoodAddServices>();
     }
 }

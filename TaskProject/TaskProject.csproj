@@ -37,4 +37,8 @@
     <ProjectReference Include="..\DataManager\DataManager.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mediatr\GoodMediatr\Command\" />
+  </ItemGroup>
+
 </Project>
