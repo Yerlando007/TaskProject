@@ -1,6 +1,7 @@
 ﻿using DataManager.Base;
 using DataManager.EF;
 using DataManager.Model;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TaskProject.Interfaces;
 using TaskProject.Mediatr.Query;
@@ -11,6 +12,7 @@ public class GoodAddServices : IGoodAdd
 {
     public readonly CategoryContext _context;
     public GoodAddServices(CategoryContext context) => _context = context;
+
     public async Task<bool> AddGoodItem(GoodAddQuery value)
     {
         var fields = new List<FieldDescribe>();
@@ -34,5 +36,11 @@ public class GoodAddServices : IGoodAdd
         });
         await _context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<List<Good>> GetGoods()
+    {
+        var goodList = await _context.Good.Include(r => r.FieldDescribe).ToListAsync();
+        return goodList;
     }
 }
