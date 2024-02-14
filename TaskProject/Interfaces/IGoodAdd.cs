@@ -6,5 +6,5 @@ namespace TaskProject.Interfaces;
 public interface IGoodAdd
 {
     Task<bool> AddGoodItem(GoodAddQuery value);
-    Task<List<Good>> GetGoods();
+    Task<List<Good>> GetGoods(int fieldId);
 }
