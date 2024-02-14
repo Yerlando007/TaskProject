@@ -11,6 +11,7 @@ public class CategoryRemoveFieldQuery : IRequest<Result<bool>>
         CategoryId = value.CategoryId;
         Field = value.Field;
     }
+
     public int CategoryId { get; set; }
     public List<int> Field { get; set; } = null!;
 }

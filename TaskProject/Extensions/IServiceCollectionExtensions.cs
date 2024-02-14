@@ -41,7 +41,6 @@ public static class IServiceCollectionExtensions
         return services;
     }
 
-
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
         return services.AddScoped<ICategoryAdd, CategoryAddServices>();

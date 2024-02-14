@@ -10,6 +10,7 @@ public class CategoryAddServices : ICategoryAdd
 {
     public readonly CategoryContext _context;
     public CategoryAddServices(CategoryContext context) => _context = context;
+
     public async Task<bool> AddCategory(CategoryAddQuery value)
     {
         var fields = new List<Field>();

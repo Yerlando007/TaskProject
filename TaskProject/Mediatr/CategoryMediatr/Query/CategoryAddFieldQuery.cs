@@ -11,6 +11,7 @@ public class CategoryAddFieldQuery : IRequest<Result<bool>>
         CategoryId = value.CategoryId;
         Field = value.Field;
     }
+
     public int CategoryId { get; set; }
     public List<string> Field { get; set; } = null!;
 }
