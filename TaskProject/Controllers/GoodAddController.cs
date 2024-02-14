@@ -17,9 +17,9 @@ public class GoodAddController : BaseController
     }
 
     [HttpGet("GetAllGoods")]
-    public async Task<IActionResult> GetAllGoods()
+    public async Task<IActionResult> GetAllGoods(int fieldId = 0)
     {
-        var result = await Sender.Send(new GetAllGoodCommand());
+        var result = await Sender.Send(new GetAllGoodCommand(fieldId));
         return Ok(result);
     }
 }

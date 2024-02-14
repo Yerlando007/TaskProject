@@ -37,7 +37,7 @@ public class GoodAddServices : IGoodAdd
         return true;
     }
 
-    public async Task<List<Good>> GetGoods()
+    public async Task<List<Good>> GetGoods(int fieldId)
     {
         var goodList = await _context.Good.Include(r => r.FieldDescribe).ToListAsync();
         return goodList;

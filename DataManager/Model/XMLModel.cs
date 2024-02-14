@@ -1,6 +1,6 @@
 ﻿namespace DataManager.Model;
 
-public class CategoryFields
+public class XMLModel
 {
     public int CategoryId { get; set; }
     public int FieldId { get; set; }
@@ -9,5 +9,5 @@ public class CategoryFields
 
 public class CategoryList
 {
-    public List<CategoryFields> CategoryFields { get; set; } = null!;
+    public List<XMLModel> CategoryFields { get; set; } = null!;
 }
