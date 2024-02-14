@@ -1,6 +1,5 @@
 ﻿using DataManager.EF;
 using Microsoft.EntityFrameworkCore;
-using TestMediatorApi.Models.EF;
 
 namespace DataManager.Base;
 
