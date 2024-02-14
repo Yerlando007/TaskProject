@@ -22,7 +22,8 @@ public class GoodAddServices : IGoodAdd
             fields.Add(new FieldDescribe
             {
                 Description = field.CategoryDescription,
-                CategoryId = field.CategoryId
+                CategoryId = value.CategoryId,
+                FieldId = field.FieldId
             });
         }
         await _context.Good.AddAsync(new Good
