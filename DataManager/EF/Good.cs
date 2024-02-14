@@ -8,5 +8,6 @@ public class Good
 
     public decimal Price { get; set; }
     public int CategoryId { get; set; }
+    public List<Field> Fields { get; set; } = null!;
     public List<FieldDescribe> FieldDescribe { get; set; } = null!;
 }
