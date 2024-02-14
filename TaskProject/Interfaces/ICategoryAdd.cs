@@ -6,4 +6,5 @@ public interface ICategoryAdd
 {
     Task<bool> AddCategory(CategoryAddQuery value);
     Task<bool> AddFieldCategory(CategoryAddFieldQuery value);
+    Task<bool> RemoveFieldCategory(CategoryRemoveFieldQuery value);
 }

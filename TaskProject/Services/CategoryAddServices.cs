@@ -28,6 +28,7 @@ public class CategoryAddServices : ICategoryAdd
         await _context.SaveChangesAsync();
         return true;
     }
+
     public async Task<bool> AddFieldCategory(CategoryAddFieldQuery value)
     {
         var categoryList = await _context.Category.Include(r => r.Fields).ToListAsync();
@@ -39,6 +40,18 @@ public class CategoryAddServices : ICategoryAdd
                 Name = field,
                 CategoryId = category.Id
             });
+        }
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> RemoveFieldCategory(CategoryRemoveFieldQuery value)
+    {
+        var categoryList = await _context.Category.Include(r => r.Fields).ToListAsync();
+        var category = categoryList.FirstOrDefault(r => r.Id == value.CategoryId);
+        foreach (var field in value.Field)
+        {
+            category!.Fields.Remove(category.Fields.FirstOrDefault(r => r.Id == field)!);
         }
         await _context.SaveChangesAsync();
         return true;
