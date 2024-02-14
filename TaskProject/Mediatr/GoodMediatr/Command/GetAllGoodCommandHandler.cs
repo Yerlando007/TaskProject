@@ -15,6 +15,6 @@ public class GetAllGoodCommandHandler : IRequestHandler<GetAllGoodCommand, Resul
     public async Task<Result<List<Good>>> Handle(GetAllGoodCommand request, CancellationToken cancellationToken)
     {
         var item = await _category.GetGoods();
-        return Result.Success(new List<Good>());
+        return Result.Success(item);
     }
 }
