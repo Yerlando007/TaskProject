@@ -3,8 +3,8 @@ using System.Reflection;
 using MediatR;
 using FluentValidation;
 using DataManager.Base;
-using TestMediatorApi.Services;
 using TaskProject.Interfaces;
+using TaskProject.Services;
 
 namespace TaskProject.Extensions;
 
@@ -43,6 +43,6 @@ public static class IServiceCollectionExtensions
 
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        return services.AddScoped<ICategoryAdd, CategoryAddServices>().AddScoped<IGoodAdd, GoodAddServices>();
+        return services.AddScoped<ICarService, CarService>().AddScoped<IWorkerService, WorkerService>();
     }
 }

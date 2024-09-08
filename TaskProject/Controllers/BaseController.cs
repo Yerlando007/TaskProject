@@ -15,11 +15,11 @@ namespace TaskProject.Controllers;
 public class BaseController : ControllerBase
 {
     /// <summary>Получает доступ к интерфейсу медиатора</summary>
-    protected ISender Sender =>
+    protected ISender _sender =>
         HttpContext.RequestServices.GetRequiredService<ISender>() ?? throw new ArgumentNullException(nameof(ISender));
 
     /// <summary>Получает доступ к интерфейсу авто маппера</summary>
-    protected IMapper Mapper =>
+    protected IMapper _mapper =>
         HttpContext.RequestServices.GetRequiredService<IMapper>() ?? throw new ArgumentNullException(nameof(IMapper));
 
     /// <summary>
