@@ -9,10 +9,8 @@ public class AddWorkerCommandHandler : IRequestHandler<AddWorkerCommand, Result>
 {
     private readonly IWorkerService _workerService;
 
-    public AddWorkerCommandHandler(IWorkerService workerService)
-    {
-        _workerService = workerService;
-    }
+    public AddWorkerCommandHandler(IWorkerService workerService) 
+        => _workerService = workerService;
 
     public async Task<Result> Handle(AddWorkerCommand request, CancellationToken cancellationToken)
     {

@@ -43,6 +43,8 @@ public static class IServiceCollectionExtensions
 
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        return services.AddScoped<ICarService, CarService>().AddScoped<IWorkerService, WorkerService>();
+        return services.AddScoped<ICarService, CarService>()
+            .AddScoped<IWorkerService, WorkerService>()
+            .AddScoped<IPositionService, PositionService>();
     }
 }

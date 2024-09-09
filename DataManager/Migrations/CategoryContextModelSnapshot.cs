@@ -33,7 +33,7 @@ namespace DataManager.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("WhoAdded")
+                    b.Property<int>("WhoAddedId")
                         .HasColumnType("integer");
 
                     b.Property<int>("WorkerId")
@@ -52,8 +52,9 @@ namespace DataManager.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Name")
-                        .HasColumnType("integer");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

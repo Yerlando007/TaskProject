@@ -9,10 +9,8 @@ public class GetWorkerQueryHandler : IRequestHandler<GetWorkerQuery, Result<Data
 {
     private readonly IWorkerService _category;
 
-    public GetWorkerQueryHandler(IWorkerService todoitems)
-    {
-        _category = todoitems;
-    }
+    public GetWorkerQueryHandler(IWorkerService todoitems) 
+        => _category = todoitems;
 
     public async Task<Result<DataManager.EF.Worker>> Handle(GetWorkerQuery request, CancellationToken cancellationToken)
     {

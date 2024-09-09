@@ -17,7 +17,7 @@ namespace DataManager.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    WhoAdded = table.Column<int>(type: "integer", nullable: false),
+                    WhoAddedId = table.Column<int>(type: "integer", nullable: false),
                     CarNumberOfWorker = table.Column<string>(type: "text", nullable: false),
                     WorkerId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -32,7 +32,7 @@ namespace DataManager.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<int>(type: "integer", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

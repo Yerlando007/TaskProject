@@ -31,7 +31,7 @@ public class WorkerControlController : BaseController
         return Ok(result);
     }
 
-    [HttpGet("GetWorker")]
+    [HttpGet("GetWorker/{workerId}")]
     public async Task<IActionResult> GetWorker(int workerId)
     {
         var result = await _sender.Send(new GetWorkerQuery(workerId));

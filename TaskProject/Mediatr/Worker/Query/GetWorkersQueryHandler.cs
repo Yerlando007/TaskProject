@@ -8,10 +8,8 @@ public class GetWorkersQueryHandler : IRequestHandler<GetWorkersQuery, Result<Li
 {
     private readonly IWorkerService _workerService;
 
-    public GetWorkersQueryHandler(IWorkerService workerService)
-    {
-        _workerService = workerService;
-    }
+    public GetWorkersQueryHandler(IWorkerService workerService) 
+        => _workerService = workerService;
 
     public async Task<Result<List<DataManager.EF.Worker>>> Handle(GetWorkersQuery request, CancellationToken cancellationToken)
     {

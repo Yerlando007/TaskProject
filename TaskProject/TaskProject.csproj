@@ -34,10 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mediatr\Car\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DataManager\DataManager.csproj" />
   </ItemGroup>
 

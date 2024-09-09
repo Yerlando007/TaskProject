@@ -8,10 +8,8 @@ public class UpdateWorkerCommandHandler : IRequestHandler<UpdateWorkerCommand, R
 {
     private readonly IWorkerService _category;
 
-    public UpdateWorkerCommandHandler(IWorkerService todoitems)
-    {
-        _category = todoitems;
-    }
+    public UpdateWorkerCommandHandler(IWorkerService todoitems) 
+        => _category = todoitems;
 
     public async Task<Result> Handle(UpdateWorkerCommand request, CancellationToken cancellationToken)
     {

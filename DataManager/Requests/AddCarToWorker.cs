@@ -1,6 +1,7 @@
-﻿public class CarNumber
+﻿namespace DataManager.Requests;
+
+public class AddCarToWorker
 {
-    public int Id { get; set; }
     public int WhoAddedId { get; set; }
     public string CarNumberOfWorker { get; set; } = null!;
     public int WorkerId { get; set; }

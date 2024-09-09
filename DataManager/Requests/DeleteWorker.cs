@@ -2,5 +2,5 @@
 
 public class DeleteWorker
 {
-    public int WorkerId { get; set; }
+    public int Id { get; set; }
 }

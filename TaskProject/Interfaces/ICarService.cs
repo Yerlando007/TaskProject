@@ -1,10 +1,14 @@
-﻿namespace TaskProject.Interfaces
+﻿using DataManager.Requests;
+using TaskProject.Mediatr.Car.Command;
+using TaskProject.Mediatr.Worker.Command;
+
+namespace TaskProject.Interfaces
 {
     public interface ICarService
     {
-        //Task<bool> AddCategory(CategoryAddQuery value);
-        //Task<bool> AddFieldCategory(GetWorkersQuery value);
-        //Task<bool> RemoveFieldCategory(CategoryRemoveFieldQuery value);
-        //Task<List<Worker>> GetFieldsCategory();
+        Task<bool> AddCarToWorker(AddCarToWorkerCommand value);
+        Task<bool> UpdateCarOfWorker(UpdateWorkerCarCommand value);
+        Task<bool> DeleteCarOfWorker(DeleteWorkerCarCommand value);
+        Task<CarNumber> GetWorkerCar(int workerId);
     }
 }

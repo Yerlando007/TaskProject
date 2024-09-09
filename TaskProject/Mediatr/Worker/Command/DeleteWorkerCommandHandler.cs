@@ -8,10 +8,8 @@ public class DeleteWorkerCommandHandler : IRequestHandler<DeleteWorkerCommand, R
 {
     private readonly IWorkerService _workerService;
 
-    public DeleteWorkerCommandHandler(IWorkerService workerService)
-    {
-        _workerService = workerService;
-    }
+    public DeleteWorkerCommandHandler(IWorkerService workerService) 
+        => _workerService = workerService;
 
     public async Task<Result> Handle(DeleteWorkerCommand request, CancellationToken cancellationToken)
     {

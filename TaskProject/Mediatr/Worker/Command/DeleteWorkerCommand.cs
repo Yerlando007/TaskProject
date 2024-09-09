@@ -9,7 +9,7 @@ public class DeleteWorkerCommand : IRequest<Result>
 {
     public DeleteWorkerCommand(DeleteWorker value)
     {
-        WorkerId = value.WorkerId;
+        WorkerId = value.Id;
     }
 
     public int WorkerId { get; set; }
