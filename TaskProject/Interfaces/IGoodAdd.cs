@@ -1,10 +1,11 @@
 ﻿using DataManager.EF;
-using TaskProject.Mediatr.GoodMediatr.Query;
+using KDS.Primitives.FluentResult;
+using TaskProject.Mediatr.Good.Command;
 
 namespace TaskProject.Interfaces;
 
 public interface IGoodAdd
 {
-    Task<bool> AddGoodItem(GoodAddQuery value);
-    Task<List<Good>> GetGoods();
+    Task<Result> AddGoodItem(AddGoodCommand value);
+    Task<Result<List<Goods>>> GetGoods();
 }

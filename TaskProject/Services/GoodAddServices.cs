@@ -1,46 +1,53 @@
 ﻿using DataManager.Base;
 using DataManager.EF;
 using DataManager.Model;
+using KDS.Primitives.FluentResult;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using TaskProject.Extensions;
 using TaskProject.Interfaces;
-using TaskProject.Mediatr.GoodMediatr.Query;
+using TaskProject.Mediatr.Good.Command;
 
 namespace TaskProject.Services;
 
 public class GoodAddServices : IGoodAdd
 {
     public readonly CategoryContext _context;
-    public GoodAddServices(CategoryContext context) => _context = context;
+    public GoodAddServices(CategoryContext context) 
+        => _context = context;
 
-    public async Task<bool> AddGoodItem(GoodAddQuery value)
+    public async Task<Result> AddGoodItem(AddGoodCommand value)
     {
-        var fields = new List<FieldDescribe>();
-        var goodDeserialize = JsonConvert.DeserializeObject<CategoryList>(value.CategoryFields);       
-        foreach (var field in goodDeserialize!.CategoryFields)
+        var goodDeserialize = JsonConvert.DeserializeObject<CategoryList>(value.CategoryFields);
+
+        var fields = goodDeserialize!.CategoryFields.Select(field => new FieldDescribe
         {
-            fields.Add(new FieldDescribe
-            {
-                Description = field.CategoryDescription,
-                CategoryId = value.CategoryId,
-                FieldId = field.FieldId
-            });
-        }
-        await _context.Good.AddAsync(new Good
+            Description = field.CategoryDescription,
+            CategoriesId = value.CategoryId,
+            FieldId = field.FieldId
+        }).ToList();
+
+        await _context.Good.AddAsync(new Goods
         {
             Name = value.Name,
             FieldDescribe = fields,
-            Decription = value.Description,
-            CategoryId = value.CategoryId,
+            Description = value.Description,
+            CategoriesId = value.CategoryId,
             Price = value.Price
         });
+
         await _context.SaveChangesAsync();
-        return true;
+
+        return Result.Success();
     }
 
-    public async Task<List<Good>> GetGoods()
+    public async Task<Result<List<Goods>>> GetGoods()
     {
-        var goodList = await _context.Good.Include(r => r.FieldDescribe).ToListAsync();
-        return goodList;
+        var goods = await _context.Good.Include(g => g.FieldDescribe).ToListAsync();
+
+        if (!goods.Any())
+            return Result.Failure<List<Goods>>(CustomError.Create(ErrorCode.NotFoundError, "Товары не были найдены"));
+
+        return Result.Success(goods);
     }
 }

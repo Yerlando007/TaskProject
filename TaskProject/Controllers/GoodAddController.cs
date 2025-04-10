@@ -1,7 +1,10 @@
-using DataManager.Base;
+using AutoMapper;
+using DataManager.Request;
+using DataManager.Response;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TaskProject.Mediatr.GoodMediatr.Command;
-using TaskProject.Mediatr.GoodMediatr.Query;
+using TaskProject.Mediatr.Good.Command;
+using TaskProject.Mediatr.Good.Query;
 
 namespace TaskProject.Controllers;
 
@@ -9,17 +12,25 @@ namespace TaskProject.Controllers;
 [ApiController]
 public class GoodAddController : BaseController
 {
+    public GoodAddController(ISender sender, IMapper mapper)
+    : base(sender, mapper) { }
+
     [HttpPost("AddGood")]
-    public async Task<IActionResult> AddGood([FromForm] AddGoodFormData value)
+    public async Task<IActionResult> AddGood([FromForm] AddGoodRequest value)
     {
-        var result = await Sender.Send(new GoodAddQuery(value));
+        var result = await _sender.Send(new AddGoodCommand(value));
+
         return Ok(result);
     }
 
     [HttpGet("GetAllGoods")]
     public async Task<IActionResult> GetAllGoods()
     {
-        var result = await Sender.Send(new GetAllGoodCommand());
-        return Ok(result);
+        var result = await _sender.Send(new AllGoodQuery());
+
+        if (result.IsFailed)
+            return BadRequest(ProblemResponse(result.Error));
+
+        return Ok(_mapper.Map<List<GoodsDto>>(result.Value));
     }
 }

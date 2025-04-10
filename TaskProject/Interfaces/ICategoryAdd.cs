@@ -1,12 +1,13 @@
 ﻿using DataManager.EF;
-using TaskProject.Mediatr.CategoryMediatr.Query;
+using KDS.Primitives.FluentResult;
+using TaskProject.Mediatr.Category.Command;
 
 namespace TaskProject.Interfaces;
 
 public interface ICategoryAdd
 {
-    Task<bool> AddCategory(CategoryAddQuery value);
-    Task<bool> AddFieldCategory(CategoryAddFieldQuery value);
-    Task<bool> RemoveFieldCategory(CategoryRemoveFieldQuery value);
-    Task<List<Category>> GetFieldsCategory();
+    Task AddCategory(AddCategoryCommand value);
+    Task<Result> AddFieldCategory(AddCategoryFieldCommand value);
+    Task<Result> RemoveFieldCategory(RemoveCategoryFieldCommand value);
+    Task<Result<List<Categories>>> GetFieldsCategory();
 }

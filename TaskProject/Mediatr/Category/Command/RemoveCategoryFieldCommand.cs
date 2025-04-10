@@ -1,12 +1,13 @@
 ﻿using DataManager.Base;
+using DataManager.Request;
 using KDS.Primitives.FluentResult;
 using MediatR;
 
-namespace TaskProject.Mediatr.CategoryMediatr.Query;
+namespace TaskProject.Mediatr.Category.Command;
 
-public class CategoryRemoveFieldQuery : IRequest<Result<bool>>
+public class RemoveCategoryFieldCommand : IRequest<Result>
 {
-    public CategoryRemoveFieldQuery(RemoveCategoryFieldFormData value)
+    public RemoveCategoryFieldCommand(RemoveCategoryFieldRequest value)
     {
         CategoryId = value.CategoryId;
         Field = value.Field;

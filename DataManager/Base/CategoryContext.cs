@@ -11,8 +11,8 @@ public class CategoryContext : DbContext
     
     public CategoryContext() { }
 
-    public DbSet<Category> Category { get; set; }
+    public DbSet<Categories> Category { get; set; }
     public DbSet<Field> Field { get; set; }
     public DbSet<FieldDescribe> FieldDescribe { get; set; }
-    public DbSet<Good> Good { get; set; }
+    public DbSet<Goods> Good { get; set; }
 }

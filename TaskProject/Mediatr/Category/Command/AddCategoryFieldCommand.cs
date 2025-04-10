@@ -1,12 +1,13 @@
 ﻿using DataManager.Base;
+using DataManager.Request;
 using KDS.Primitives.FluentResult;
 using MediatR;
 
-namespace TaskProject.Mediatr.CategoryMediatr.Query;
+namespace TaskProject.Mediatr.Category.Command;
 
-public class CategoryAddFieldQuery : IRequest<Result<bool>>
+public class AddCategoryFieldCommand : IRequest<Result>
 {
-    public CategoryAddFieldQuery(AddFieldCategoryFormData value)
+    public AddCategoryFieldCommand(AddFieldCategorRequest value)
     {
         CategoryId = value.CategoryId;
         Field = value.Field;

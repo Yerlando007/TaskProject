@@ -3,13 +3,12 @@ using System.Reflection;
 using MediatR;
 using FluentValidation;
 using DataManager.Base;
-using TestMediatorApi.Services;
 using TaskProject.Interfaces;
 using TaskProject.Services;
 
 namespace TaskProject.Extensions;
 
-public static class IServiceCollectionExtensions
+public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
@@ -37,7 +36,6 @@ public static class IServiceCollectionExtensions
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         return services;
     }

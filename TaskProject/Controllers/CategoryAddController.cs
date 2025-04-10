@@ -1,7 +1,10 @@
-using DataManager.Base;
 using Microsoft.AspNetCore.Mvc;
-using TaskProject.Mediatr.CategoryMediatr.Command;
-using TaskProject.Mediatr.CategoryMediatr.Query;
+using TaskProject.Mediatr.Category.Command;
+using TaskProject.Mediatr.Category.Query;
+using DataManager.Request;
+using AutoMapper;
+using MediatR;
+using DataManager.Response;
 
 namespace TaskProject.Controllers;
 
@@ -9,31 +12,47 @@ namespace TaskProject.Controllers;
 [ApiController]
 public class CategoryAddController : BaseController
 {
+    public CategoryAddController(ISender sender, IMapper mapper)
+        : base(sender, mapper) { }
+
     [HttpPost("AddCategory")]
-    public async Task<IActionResult> AddCategory([FromForm] AddCategoryFormData value)
+    public async Task<IActionResult> AddCategory([FromForm] AddCategoryRequest value)
     {
-        var result = await Sender.Send(new CategoryAddQuery(value));
+        var result = await _sender.Send(new AddCategoryCommand(value));
+
         return Ok(result);
     }
 
-    [HttpPut("AddFieldForCategory")]
-    public async Task<IActionResult> AddFieldForCategory([FromForm] AddFieldCategoryFormData value)
+    [HttpPost("AddFieldForCategory")]
+    public async Task<IActionResult> AddFieldForCategory([FromForm] AddFieldCategorRequest value)
     {
-        var result = await Sender.Send(new CategoryAddFieldQuery(value));
+        var result = await _sender.Send(new AddCategoryFieldCommand(value));
+
+        if (result.IsFailed)
+            return BadRequest(ProblemResponse(result.Error));
+                
         return Ok(result);
     }
 
     [HttpDelete("RemoveFieldForCategory")]
-    public async Task<IActionResult> RemoveFieldForCategory([FromForm] RemoveCategoryFieldFormData value)
+    public async Task<IActionResult> RemoveFieldForCategory([FromForm] RemoveCategoryFieldRequest value)
     {
-        var result = await Sender.Send(new CategoryRemoveFieldQuery(value));
+        var result = await _sender.Send(new RemoveCategoryFieldCommand(value));
+
+        if (result.IsFailed)
+            return BadRequest(ProblemResponse(result.Error));
+
         return Ok(result);
     }
 
     [HttpGet("GetAllCategory")]
     public async Task<IActionResult> GetAllCategory()
     {
-        var result = await Sender.Send(new GetAllCategoryCommand());
-        return Ok(result);
+        var result = await _sender.Send(new AllCategoryQuery());
+
+        if (result.IsFailed)
+            return BadRequest(ProblemResponse(result.Error));
+
+        return Ok(_mapper.Map<List<CategoryDto>>(result.Value));
     }
 }

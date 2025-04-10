@@ -7,4 +7,5 @@ public static class ErrorCode
     public const string DatabaseError = "DATABASE_ERROR";
     public const string ExternalError = "EXTERNAL_ERROR";
     public const string ConvertError = "CONVERT_ERROR";
+    public const string NotFoundError = "NOTFOUND_ERROR";
 }

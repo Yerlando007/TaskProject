@@ -6,17 +6,14 @@ using TaskProject.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
-
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.ConfigureApplicationAssemblies();
 
-builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -24,6 +21,7 @@ builder.Services.AddSwaggerGen(c =>
         Title = "jwtToken_Auth_API",
         Version = "v1"
     });
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -31,48 +29,48 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Insert JWT token"
+        Description = "¬ведите JWT токен"
     });
-    c.AddSecurityRequirement(
-        new OpenApiSecurityRequirement
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
         {
-            {
             new OpenApiSecurityScheme
             {
-            Reference = new OpenApiReference
-            {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-            }
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
             },
-        new string[]{}
+            Array.Empty<string>()
         }
-        });
+    });
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-         .AddJwtBearer(options =>
-         {
-             options.RequireHttpsMetadata = false;
-             options.TokenValidationParameters = new TokenValidationParameters
-             {
-                 ValidateIssuer = true,
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = AuthOptions.ISSUER,
 
-                 ValidIssuer = AuthOptions.ISSUER,
+            ValidateAudience = true,
+            ValidAudience = AuthOptions.AUDIENCE,
 
-                 ValidateAudience = true,
+            ValidateLifetime = true,
 
-                 ValidAudience = AuthOptions.AUDIENCE,
+            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+            ValidateIssuerSigningKey = true,
 
-                 ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
 
-                 IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-                 ValidateIssuerSigningKey = true,
-                 ClockSkew = TimeSpan.Zero
-             };
-         });
-builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -80,16 +78,12 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-
-app.MapRazorPages();
-
-app.UseDeveloperExceptionPage();
-
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
@@ -101,5 +95,6 @@ app.UseAuthorization();
 app.UseCors();
 
 app.MapControllers();
+app.MapRazorPages();
 
 app.Run();

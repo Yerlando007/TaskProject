@@ -1,12 +1,13 @@
 ﻿using DataManager.Base;
+using DataManager.Request;
 using KDS.Primitives.FluentResult;
 using MediatR;
 
-namespace TaskProject.Mediatr.GoodMediatr.Query;
+namespace TaskProject.Mediatr.Good.Command;
 
-public class GoodAddQuery : IRequest<Result<bool>>
+public class AddGoodCommand : IRequest<Result>
 {
-    public GoodAddQuery(AddGoodFormData value)
+    public AddGoodCommand(AddGoodRequest value)
     {
         Name = value.GoodName;
         CategoryFields = value.Field;

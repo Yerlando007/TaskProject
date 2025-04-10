@@ -1,6 +1,6 @@
-﻿namespace DataManager.EF;
+﻿namespace DataManager.Response;
 
-public class FieldDescribe
+public class FieldDescribeDto
 {
     public int Id { get; set; }
     public int GoodId { get; set; }

@@ -1,66 +1,80 @@
 ﻿using DataManager.Base;
 using DataManager.EF;
+using KDS.Primitives.FluentResult;
 using Microsoft.EntityFrameworkCore;
+using TaskProject.Extensions;
 using TaskProject.Interfaces;
-using TaskProject.Mediatr.CategoryMediatr.Query;
+using TaskProject.Mediatr.Category.Command;
 
-namespace TestMediatorApi.Services;
+namespace TaskProject.Services;
 
 public class CategoryAddServices : ICategoryAdd
 {
     public readonly CategoryContext _context;
-    public CategoryAddServices(CategoryContext context) => _context = context;
+    public CategoryAddServices(CategoryContext context)
+        => _context = context;
 
-    public async Task<bool> AddCategory(CategoryAddQuery value)
+    public async Task AddCategory(AddCategoryCommand value)
     {
-        var fields = new List<Field>();
-        foreach (var field in value.Field)
-        {
-            fields.Add(new Field
-            {
-                Name = field
-            });
-        }
-        await _context.Category.AddAsync(new Category
+        await _context.Category.AddAsync(new Categories
         {
             Name = value.Name,
-            Fields = fields
-        });
-        await _context.SaveChangesAsync();
-        return true;
-    }
-
-    public async Task<bool> AddFieldCategory(CategoryAddFieldQuery value)
-    {
-        var categoryList = await _context.Category.Include(r => r.Fields).ToListAsync();
-        var category = categoryList.FirstOrDefault(r => r.Id == value.CategoryId);
-        foreach (var field in value.Field)
-        {
-            category!.Fields.Add(new Field
+            Fields = [.. value.Field.Select(fieldName => new Field
             {
-                Name = field,
-                CategoryId = category.Id
-            });
-        }
+                Name = fieldName
+            })]
+        });
+
         await _context.SaveChangesAsync();
-        return true;
     }
 
-    public async Task<bool> RemoveFieldCategory(CategoryRemoveFieldQuery value)
+    public async Task<Result> AddFieldCategory(AddCategoryFieldCommand value)
     {
-        var categoryList = await _context.Category.Include(r => r.Fields).ToListAsync();
-        var category = categoryList.FirstOrDefault(r => r.Id == value.CategoryId);
-        foreach (var field in value.Field)
+        var category = await _context.Category
+            .Include(c => c.Fields)
+            .FirstOrDefaultAsync(c => c.Id == value.CategoryId);
+
+        if (category == null)
+            return Result.Failure(CustomError.Create(ErrorCode.NotFoundError, "Категория не была найдена"));
+
+        foreach (var fieldName in value.Field.Distinct())
+            if (!category.Fields.Any(f => f.Name == fieldName))
+                category.Fields.Add(new Field { Name = fieldName });
+
+        await _context.SaveChangesAsync();
+
+        return Result.Success();
+    }
+
+    public async Task<Result> RemoveFieldCategory(RemoveCategoryFieldCommand value)
+    {
+        var category = await _context.Category
+            .Include(c => c.Fields)
+            .FirstOrDefaultAsync(c => c.Id == value.CategoryId);
+
+        if (category == null)
+            return Result.Failure(CustomError.Create(ErrorCode.NotFoundError, "Категория не была найдена"));
+
+        foreach (var fieldId in value.Field)
         {
-            category!.Fields.Remove(category.Fields.FirstOrDefault(r => r.Id == field)!);
+            var fieldToRemove = category.Fields.FirstOrDefault(f => f.Id == fieldId);
+            if (fieldToRemove != null)
+                category.Fields.Remove(fieldToRemove);
         }
+
         await _context.SaveChangesAsync();
-        return true;
+
+        return Result.Success();
+
     }
 
-    public async Task<List<Category>> GetFieldsCategory()
+    public async Task<Result<List<Categories>>> GetFieldsCategory()
     {
-        var categoryList = await _context.Category.Include(r => r.Fields).ToListAsync();
-        return categoryList;
+        var categories = await _context.Category.Include(c => c.Fields).ToListAsync();
+
+        if (!categories.Any())
+            return Result.Failure<List<Categories>>(CustomError.Create(ErrorCode.NotFoundError, "Список категорий пуст"));
+
+        return Result.Success(categories);
     }
 }
