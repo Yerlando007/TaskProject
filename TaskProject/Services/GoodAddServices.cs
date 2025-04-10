@@ -4,9 +4,9 @@ using DataManager.Model;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TaskProject.Interfaces;
-using TaskProject.Mediatr.Query;
+using TaskProject.Mediatr.GoodMediatr.Query;
 
-namespace TestMediatorApi.Services;
+namespace TaskProject.Services;
 
 public class GoodAddServices : IGoodAdd
 {

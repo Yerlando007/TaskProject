@@ -3,7 +3,7 @@ using KDS.Primitives.FluentResult;
 using MediatR;
 using TaskProject.Interfaces;
 
-namespace TestMediatorApi.Mediatr.CategoryMediatr.Command;
+namespace TaskProject.Mediatr.CategoryMediatr.Command;
 
 public class GetAllCategoryCommandHandler : IRequestHandler<GetAllCategoryCommand, Result<List<Category>>>
 {

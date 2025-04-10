@@ -2,7 +2,7 @@
 using KDS.Primitives.FluentResult;
 using MediatR;
 
-namespace TaskProject.Mediatr.Query;
+namespace TaskProject.Mediatr.GoodMediatr.Query;
 
 public class GoodAddQuery : IRequest<Result<bool>>
 {

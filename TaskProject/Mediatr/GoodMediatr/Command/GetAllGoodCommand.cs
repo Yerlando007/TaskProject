@@ -2,7 +2,7 @@
 using KDS.Primitives.FluentResult;
 using MediatR;
 
-namespace TaskProject.Mediatr.Command;
+namespace TaskProject.Mediatr.GoodMediatr.Command;
 
 public class GetAllGoodCommand : IRequest<Result<List<Good>>>
 {

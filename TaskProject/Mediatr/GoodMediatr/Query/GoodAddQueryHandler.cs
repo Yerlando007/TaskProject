@@ -2,7 +2,7 @@
 using MediatR;
 using TaskProject.Interfaces;
 
-namespace TaskProject.Mediatr.Query;
+namespace TaskProject.Mediatr.GoodMediatr.Query;
 
 public class GoodAddQueryHandler : IRequestHandler<GoodAddQuery, Result<bool>>
 {

@@ -1,10 +1,9 @@
 using DataManager.Base;
 using Microsoft.AspNetCore.Mvc;
-using TaskProject.Controllers;
+using TaskProject.Mediatr.CategoryMediatr.Command;
 using TaskProject.Mediatr.CategoryMediatr.Query;
-using TestMediatorApi.Mediatr.CategoryMediatr.Command;
 
-namespace TestMediatorApi.Controllers;
+namespace TaskProject.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

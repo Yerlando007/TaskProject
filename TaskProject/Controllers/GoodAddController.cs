@@ -1,7 +1,7 @@
 using DataManager.Base;
 using Microsoft.AspNetCore.Mvc;
-using TaskProject.Mediatr.Command;
-using TaskProject.Mediatr.Query;
+using TaskProject.Mediatr.GoodMediatr.Command;
+using TaskProject.Mediatr.GoodMediatr.Query;
 
 namespace TaskProject.Controllers;
 

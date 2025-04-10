@@ -3,7 +3,7 @@ using KDS.Primitives.FluentResult;
 using MediatR;
 using TaskProject.Interfaces;
 
-namespace TaskProject.Mediatr.Command;
+namespace TaskProject.Mediatr.GoodMediatr.Command;
 
 public class GetAllGoodCommandHandler : IRequestHandler<GetAllGoodCommand, Result<List<Good>>>
 {

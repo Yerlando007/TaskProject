@@ -1,5 +1,5 @@
 ﻿using DataManager.EF;
-using TaskProject.Mediatr.Query;
+using TaskProject.Mediatr.GoodMediatr.Query;
 
 namespace TaskProject.Interfaces;
 
