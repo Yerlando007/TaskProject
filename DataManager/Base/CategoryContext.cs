@@ -1,0 +1,18 @@
+﻿using DataManager.EF;
+using Microsoft.EntityFrameworkCore;
+
+namespace DataManager.Base;
+
+public class CategoryContext : DbContext
+{
+    public CategoryContext(DbContextOptions<CategoryContext> options) : base(options)
+    {
+    }
+    
+    public CategoryContext() { }
+
+    public DbSet<Categories> Category { get; set; }
+    public DbSet<Field> Field { get; set; }
+    public DbSet<FieldDescribe> FieldDescribe { get; set; }
+    public DbSet<Goods> Good { get; set; }
+}
