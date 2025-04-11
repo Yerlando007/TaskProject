@@ -8,10 +8,10 @@ using TaskProject.Mediatr.Category.Command;
 
 namespace TaskProject.Services;
 
-public class CategoryAddServices : ICategoryAdd
+public class CategoryServices : ICategory
 {
     public readonly CategoryContext _context;
-    public CategoryAddServices(CategoryContext context)
+    public CategoryServices(CategoryContext context)
         => _context = context;
 
     public async Task AddCategory(AddCategoryCommand value)

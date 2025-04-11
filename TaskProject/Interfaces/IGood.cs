@@ -4,7 +4,7 @@ using TaskProject.Mediatr.Good.Command;
 
 namespace TaskProject.Interfaces;
 
-public interface IGoodAdd
+public interface IGood
 {
     Task<Result> AddGoodItem(AddGoodCommand value);
     Task<Result<List<Goods>>> GetGoods();

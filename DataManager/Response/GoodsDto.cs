@@ -1,6 +1,4 @@
-﻿using DataManager.EF;
-
-namespace DataManager.Response;
+﻿namespace DataManager.Response;
 
 public class GoodsDto
 {

@@ -7,9 +7,9 @@ namespace TaskProject.Mediatr.Category.Query;
 
 public class AllCategoryQueryHandler : IRequestHandler<AllCategoryQuery, Result<List<Categories>>>
 {
-    private readonly ICategoryAdd _category;
+    private readonly ICategory _category;
 
-    public AllCategoryQueryHandler(ICategoryAdd todoitems)
+    public AllCategoryQueryHandler(ICategory todoitems)
     {
         _category = todoitems;
     }

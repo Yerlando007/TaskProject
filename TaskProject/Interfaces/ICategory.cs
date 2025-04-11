@@ -4,7 +4,7 @@ using TaskProject.Mediatr.Category.Command;
 
 namespace TaskProject.Interfaces;
 
-public interface ICategoryAdd
+public interface ICategory
 {
     Task AddCategory(AddCategoryCommand value);
     Task<Result> AddFieldCategory(AddCategoryFieldCommand value);

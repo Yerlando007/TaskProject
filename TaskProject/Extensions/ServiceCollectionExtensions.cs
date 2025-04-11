@@ -36,12 +36,16 @@ public static class ServiceCollectionExtensions
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddHttpClient<IApiClient, ApiClientService>();
 
         return services;
     }
 
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        return services.AddScoped<ICategoryAdd, CategoryAddServices>().AddScoped<IGoodAdd, GoodAddServices>();
+        return services
+            .AddScoped<ICategory, CategoryServices>()
+            .AddScoped<IGood, GoodServices>()
+            .AddScoped<IApiClient, ApiClientService>();
     }
 }

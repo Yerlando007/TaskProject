@@ -6,9 +6,9 @@ namespace TaskProject.Mediatr.Category.Command;
 
 public class RemoveCategoryFieldCommandHandler : IRequestHandler<RemoveCategoryFieldCommand, Result>
 {
-    private readonly ICategoryAdd _category;
+    private readonly ICategory _category;
 
-    public RemoveCategoryFieldCommandHandler(ICategoryAdd todoitems)
+    public RemoveCategoryFieldCommandHandler(ICategory todoitems)
     {
         _category = todoitems;
     }

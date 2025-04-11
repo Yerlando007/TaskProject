@@ -1,4 +1,3 @@
-using DataManager.Base;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -12,6 +11,14 @@ builder.Services.AddControllers();
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.ConfigureApplicationAssemblies();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader());
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -29,7 +36,7 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "¬ведите JWT токен"
+        Description = "¬ведите JWT токен (Keycloak)"
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -51,26 +58,21 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.Authority = "http://localhost:8080/realms/master";
+        options.Audience = "account";
         options.RequireHttpsMetadata = false;
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
-            ValidIssuer = AuthOptions.ISSUER,
-
             ValidateAudience = true,
-            ValidAudience = AuthOptions.AUDIENCE,
-
             ValidateLifetime = true,
-
-            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-            ValidateIssuerSigningKey = true,
-
-            ClockSkew = TimeSpan.Zero
+            ValidateIssuerSigningKey = true
         };
     });
 
+builder.Services.AddAuthorization();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 
 var app = builder.Build();
 
@@ -86,15 +88,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseDefaultFiles();
 app.UseStaticFiles();
-
 app.UseRouting();
-
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseCors();
-
 app.MapControllers();
 app.MapRazorPages();
-
 app.Run();

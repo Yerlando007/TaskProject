@@ -5,18 +5,20 @@ using DataManager.Request;
 using AutoMapper;
 using MediatR;
 using DataManager.Response;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TaskProject.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CategoryAddController : BaseController
+[Authorize]
+public class CategoryController : BaseController
 {
-    public CategoryAddController(ISender sender, IMapper mapper)
+    public CategoryController(ISender sender, IMapper mapper)
         : base(sender, mapper) { }
 
     [HttpPost("AddCategory")]
-    public async Task<IActionResult> AddCategory([FromForm] AddCategoryRequest value)
+    public async Task<IActionResult> AddCategory([FromBody] AddCategoryRequest value)
     {
         var result = await _sender.Send(new AddCategoryCommand(value));
 
@@ -24,18 +26,18 @@ public class CategoryAddController : BaseController
     }
 
     [HttpPost("AddFieldForCategory")]
-    public async Task<IActionResult> AddFieldForCategory([FromForm] AddFieldCategorRequest value)
+    public async Task<IActionResult> AddFieldForCategory([FromBody] AddFieldCategorRequest value)
     {
         var result = await _sender.Send(new AddCategoryFieldCommand(value));
 
         if (result.IsFailed)
             return BadRequest(ProblemResponse(result.Error));
-                
+
         return Ok(result);
     }
 
     [HttpDelete("RemoveFieldForCategory")]
-    public async Task<IActionResult> RemoveFieldForCategory([FromForm] RemoveCategoryFieldRequest value)
+    public async Task<IActionResult> RemoveFieldForCategory([FromBody] RemoveCategoryFieldRequest value)
     {
         var result = await _sender.Send(new RemoveCategoryFieldCommand(value));
 
@@ -45,8 +47,8 @@ public class CategoryAddController : BaseController
         return Ok(result);
     }
 
-    [HttpGet("GetAllCategory")]
-    public async Task<IActionResult> GetAllCategory()
+    [HttpGet("GetAllCategories")]
+    public async Task<IActionResult> GetAllCategories()
     {
         var result = await _sender.Send(new AllCategoryQuery());
 
