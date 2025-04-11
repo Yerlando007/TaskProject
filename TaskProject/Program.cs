@@ -29,7 +29,7 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "¬ведите JWT токен"
+        Description = "¬ведите JWT токен (Keycloak)"
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -51,23 +51,22 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.Authority = "http://localhost:8080/realms/myrealm";
+
+        options.Audience = "account";
         options.RequireHttpsMetadata = false;
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
-            ValidIssuer = AuthOptions.ISSUER,
-
             ValidateAudience = true,
-            ValidAudience = AuthOptions.AUDIENCE,
-
             ValidateLifetime = true,
-
-            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-            ValidateIssuerSigningKey = true,
-
-            ClockSkew = TimeSpan.Zero
+            ValidIssuer = "http://localhost:8080/realms/myrealm",
+            ValidAudience = "token-client",
         };
     });
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
