@@ -7,8 +7,8 @@ namespace TaskProject.Mediatr.Good.Query;
 
 public class AllGoodQueryHandler : IRequestHandler<AllGoodQuery, Result<List<Goods>>>
 {
-    private readonly IGoodAdd _category;
-    public AllGoodQueryHandler(IGoodAdd todoitems)
+    private readonly IGood _category;
+    public AllGoodQueryHandler(IGood todoitems)
     {
         _category = todoitems;
     }

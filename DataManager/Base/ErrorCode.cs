@@ -8,4 +8,6 @@ public static class ErrorCode
     public const string ExternalError = "EXTERNAL_ERROR";
     public const string ConvertError = "CONVERT_ERROR";
     public const string NotFoundError = "NOTFOUND_ERROR";
+    public const string NetworkError = "NETWORK_ERROR";
+    public const string UnexpectedError = "UNEXPECTED_ERROR";
 }

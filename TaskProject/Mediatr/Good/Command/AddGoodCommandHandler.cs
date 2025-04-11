@@ -6,8 +6,8 @@ namespace TaskProject.Mediatr.Good.Command;
 
 public class AddGoodCommandHandler : IRequestHandler<AddGoodCommand, Result>
 {
-    private readonly IGoodAdd _good;
-    public AddGoodCommandHandler(IGoodAdd todoitems)
+    private readonly IGood _good;
+    public AddGoodCommandHandler(IGood todoitems)
     {
         _good = todoitems;
     }

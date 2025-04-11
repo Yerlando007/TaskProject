@@ -3,7 +3,7 @@ using KDS.Primitives.FluentResult;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace DataManager.Extensions;
+namespace TaskProject.Extensions;
 
 public static class ErrorExtensions
 {
@@ -17,6 +17,8 @@ public static class ErrorExtensions
             ErrorCode.ParameterError => ("Невалидный параметр", HttpStatusCode.BadRequest),
             ErrorCode.ConvertError => ("Ошибка обработки данных", HttpStatusCode.InternalServerError),
             ErrorCode.NotFoundError => ("Не найдено", HttpStatusCode.NotFound),
+            ErrorCode.NetworkError => ("Ошибка сети", HttpStatusCode.ServiceUnavailable),
+            ErrorCode.UnexpectedError => ("Непредвиденная ошибка", HttpStatusCode.InternalServerError),
             _ => ("Необработанное исключение", HttpStatusCode.InternalServerError),
         };
 
