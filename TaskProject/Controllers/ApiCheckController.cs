@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TaskProject.Mediatr.Category.Query;
+using TaskProject.Mediatr.Api.Query;
 
 namespace TaskProject.Controllers
 {
