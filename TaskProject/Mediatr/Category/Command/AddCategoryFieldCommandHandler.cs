@@ -6,9 +6,9 @@ namespace TaskProject.Mediatr.Category.Command;
 
 public class AddCategoryFieldCommandHandler : IRequestHandler<AddCategoryFieldCommand, Result>
 {
-    private readonly ICategoryAdd _category;
+    private readonly ICategory _category;
 
-    public AddCategoryFieldCommandHandler(ICategoryAdd todoitems)
+    public AddCategoryFieldCommandHandler(ICategory todoitems)
     {
         _category = todoitems;
     }

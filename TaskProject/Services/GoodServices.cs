@@ -10,10 +10,10 @@ using TaskProject.Mediatr.Good.Command;
 
 namespace TaskProject.Services;
 
-public class GoodAddServices : IGoodAdd
+public class GoodServices : IGood
 {
     public readonly CategoryContext _context;
-    public GoodAddServices(CategoryContext context) 
+    public GoodServices(CategoryContext context) 
         => _context = context;
 
     public async Task<Result> AddGoodItem(AddGoodCommand value)
